@@ -1,0 +1,11 @@
+
+services: 
+  mysql_server:
+    image: mysql:5.7.38
+    environment: 
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=pass
+      - MYSQL_ROOT_PASSWORD=pass
+
+  
