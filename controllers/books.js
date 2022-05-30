@@ -24,7 +24,8 @@ export const initDb = (req,res)=>{
     const sql = 'select  * from books';
       db.query(sql,(error,result)=>{
             if(error) throw error;
-            res.json({'data':result}); // res.json(result);
+            res.json({'data':result}); 
+            // res.json(result);
         });
    
 
@@ -71,17 +72,30 @@ export const getBook = (req,res) => {
 };
 
 export const deleteBook = (req,res) => {
-    const id = req.params.id
-    books  = books.filter(x => x.id != id);
-    res.send('Deleted');
+    const sql = 'delete from books where id = ?';
+    db.query(sql,req.params.id,(error,result)=>{
+        if(error) throw error;
+        res.send('Deleted'); // res.json(result);
+    });
+    // const id = req.params.id
+    // books  = books.filter(x => x.id != id);
+    // res.send('Deleted');
 };
 export const updateBook = (req,res) => {
-    const id = req.params.id
-    const book = books.find(x=>x.id === id)
+    const book = req.body 
+ ;
 
-    const {title, authors,volumes} = req.body
-    book.title = title
-    book.authors = authors
-    book.volumes = volumes
-    res.send('Updated');
+    const sql =    `update books  set title = '${book.title}', authors = '${book.authors.join()}', volumes = '${book.volumes}' where id = ?`;
+    db.query(sql,req.params.id,(error,result)=>{
+        if(error) throw error;
+        res.send('Deleted'); // res.json(result);
+    });
+    // const id = req.params.id
+    // const book = books.find(x=>x.id === id)
+
+    // const {title, authors,volumes} = req.body
+    // book.title = title
+    // book.authors = authors
+    // book.volumes = volumes
+    // res.send('Updated');
 };
